@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  ctfd:
+    image: ctfd/ctfd:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ctfd-data:/data
+    environment:
+      - FLASK_APP=CTFd
+      - FLASK_ENV=development
+      - DATABASE_URL=sqlite:////data/ctfd.db
+      - SECRET_KEY=development_secret_key
+      - UPLOAD_FOLDER=/data/uploads
+      - LOG_FOLDER=/data/logs
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+
+  docker-challenges:
+    image: docker:dind
+    privileged: true
+    ports:
+      - "2376:2376"
+    volumes:
+      - ./challenges:/challenges
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+      - DOCKER_HOST=tcp://0.0.0.0:2376
+    command: ["dockerd", "--tls=true", "--tlscert=/certs/server", "--tlskey=/certs/server-key", "--tlscacert=/certs/ca"]
+
+volumes:
+  db-data:
+  cache-data: 

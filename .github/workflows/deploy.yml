@@ -1,0 +1,44 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to CTFd host
+        run: |
+          ssh ubuntu@${{ secrets.AWS_HOST }} "cd /opt/ctfd && \
+          git fetch origin && \
+          git checkout main && \
+          git pull origin main && \
+          docker-compose down && \
+          docker-compose up -d"
+
+      - name: Deploy to Challenge host
+        run: |
+          ssh ubuntu@${{ secrets.AWS_CHALLENGE_HOST }} "cd /opt/challenges && \
+          git fetch origin && \
+          git checkout main && \
+          git pull origin main && \
+          docker-compose down && \
+          docker-compose up -d"
+
+      - name: Verify deployment
+        run: |
+          curl -f https://${{ secrets.AWS_HOST }} || exit 1
+          curl -f https://${{ secrets.AWS_CHALLENGE_HOST }} || exit 1 

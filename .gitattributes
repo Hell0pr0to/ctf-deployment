@@ -1,0 +1,39 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Force bash scripts to always use LF line endings
+*.sh text eol=lf
+
+# Force batch scripts to always use CRLF line endings
+*.{cmd,[cC][mM][dD]} text eol=crlf
+
+# Force PowerShell scripts to always use CRLF line endings
+*.{ps1,psm1} text eol=crlf
+
+# Text files that should use LF
+*.css text diff=css
+*.html text diff=html
+*.js text
+*.json text
+*.md text diff=markdown
+*.py text diff=python
+*.yml text
+*.yaml text
+Dockerfile text
+docker-compose*.yml text
+
+# Binary files
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.7z binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.svg text 

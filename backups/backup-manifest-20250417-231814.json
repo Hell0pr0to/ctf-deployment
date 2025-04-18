@@ -1,0 +1,42 @@
+{
+  "backup_date": "Thu Apr 17 23:21:23 EDT 2025",
+  "backup_timestamp": "20250417-231814",
+  "instances": {
+    "ctfd_server": {
+      "instance_id": "i-0c75b6fff8d320739",
+      "ami_id": "
+[0;34m==== Creating AMI for CTFd-Server ====[0m
+
+[1;33mCreating AMI: CTF-Platform-CTFd-Server-Backup-20250417-231814[0m
+[1;33mSource instance: i-0c75b6fff8d320739[0m
+[0;32m✓ Creating AMI for CTFd-Server successful[0m
+[0;32mAMI ID: ami-0ec550110d065f101[0m
+
+[0;34m==== Waiting for AMI to be available ====[0m
+
+[1;33mThis may take several minutes...[0m
+[0;32m✓ AMI creation completed for CTFd-Server successful[0m
+ami-0ec550110d065f101"
+    },
+    "docker_server": {
+      "instance_id": "i-074b5b0cdf7542c66",
+      "ami_id": "
+[0;34m==== Creating AMI for Docker-Server ====[0m
+
+[1;33mCreating AMI: CTF-Platform-Docker-Server-Backup-20250417-231814[0m
+[1;33mSource instance: i-074b5b0cdf7542c66[0m
+[0;32m✓ Creating AMI for Docker-Server successful[0m
+[0;32mAMI ID: ami-0c8ddfc3e44f95526[0m
+
+[0;34m==== Waiting for AMI to be available ====[0m
+
+[1;33mThis may take several minutes...[0m
+[0;32m✓ AMI creation completed for Docker-Server successful[0m
+ami-0c8ddfc3e44f95526"
+    }
+  },
+  "files": {
+    "backup_log": "./backups/backup-20250417-231814.log",
+    "manifest": "./backups/backup-manifest-20250417-231814.json"
+  }
+}
